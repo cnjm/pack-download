@@ -6,7 +6,7 @@
   "permissions": [
     "storage",
     "https://detail.1688.com/*",
-    "https://xiapi.xiapibuy.com/"
+    "https://seller.shopee.cn/portal/product/mtsku/new"
   ],
   "icons": {
     "128": "assets/logo.jpg",
@@ -26,8 +26,7 @@
   "content_scripts": [
     {
       "matches": [
-        "https://detail.1688.com/*",
-        "https://xiapi.xiapibuy.com/"
+        "https://detail.1688.com/*"
       ],
       "run_at": "document_end",
       "js": [
@@ -35,6 +34,21 @@
         "js/file-saver.min.js",
         "js/jszip.min.js",
         "js/content.js"
+      ],
+      "css": [
+        "css/content.css"
+      ]
+    },
+    {
+      "matches": [
+        "https://seller.shopee.cn/portal/product/mtsku/new"
+      ],
+      "run_at": "document_end",
+      "js": [
+        "js/jq-3.2.1.min.js",
+        "js/file-saver.min.js",
+        "js/jszip.min.js",
+        "js/xiapi-content.js"
       ],
       "css": [
         "css/content.css"

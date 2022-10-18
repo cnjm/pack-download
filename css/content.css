@@ -1,13 +1,19 @@
-#plug_open {
+#plug_app {
   position: fixed;
-  bottom: 80px;
+  bottom: 100px;
   right: 50px;
-  width: 80px;
-  height: 30px;
   line-height: 30px;
   text-align: center;
-  border: 1px solid #ccc;
-  background-color: #fff;
   z-index: 999999;
   cursor: pointer;
+}
+#plug_download,
+#plug_collect {
+  border: 1px solid #ccc;
+  background-color: #fff;
+  margin-bottom: 10px;
+  width: 80px;
+  height: 30px;
+}
+#plug_collect {
 }

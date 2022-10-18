@@ -1,5 +1,24 @@
 (function () {
   console.log("-----------------脚本开始----------------");
+
+  // 发送消息
+  function sendMsg() {
+    chrome.runtime.sendMessage({ origin: "content-js" }, function (data) {
+      console.log(data);
+      // 接受返回信息
+    });
+  }
+
+  // 接受信息
+  function receiveMsg() {
+    chrome.runtime.onMessage.addListener(function (data, sender, sendResponse) {
+      sendResponse(data);
+    });
+  }
+
+  // 监听接受信息
+  receiveMsg();
+
   const getImageBase64 = (image) => {
     const canvas = document.createElement("canvas");
     canvas.width = image.width;
@@ -43,11 +62,14 @@
     }
   };
   console.log("window ", window);
-  // saveAs("content", "zipName" + ".zip");
   const oBody = $("body");
-  const txt = `<div id="plug_open">采集</div>`;
-  console.log(oBody.append(txt));
-  $("#plug_open").click(function () {
+  const txt = `<div id="plug_app">
+  <div id="plug_download">下载zip</div>
+  <div id="plug_collect">采集商品</div>
+  </div>`;
+  oBody.append(txt);
+  console.log("页面元素添加完成");
+  const getGoodsInfo = function () {
     const libVideos = $(".lib-video");
     const videoIcons = $(".detail-gallery-turn-wrapper .detail-gallery-img");
     // 标题
@@ -65,7 +87,17 @@
     const sourceList = iconList.map((item, index) => {
       return { url: item, name: index };
     });
+    console.log("商品信息：", sourceList, videoList, title);
+    return { sourceList, videoList, title };
+  };
+  // 下载商品信息 TODO
+  $("#plug_download").click(function () {
+    const { sourceList, title } = getGoodsInfo();
     downloadZip({ sourceList, zipName: title.replace(/\//g, "-") });
-    console.log(title, videoList, iconList);
+  });
+  // 采集商品到后台页面 TODO
+  $("#plug_collect").click(function () {
+    const { sourceList, title } = getGoodsInfo();
+    sendMsg();
   });
 })();
