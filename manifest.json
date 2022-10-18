@@ -1,0 +1,44 @@
+{
+  "name": "chrome-plugin-xiapi",
+  "version": "1.0",
+  "description": "xiapi plug",
+  "manifest_version": 2,
+  "permissions": [
+    "storage",
+    "https://detail.1688.com/*",
+    "https://xiapi.xiapibuy.com/"
+  ],
+  "icons": {
+    "128": "assets/logo.jpg",
+    "48": "assets/logo.jpg",
+    "16": "assets/logo.jpg"
+  },
+  "browser_action": {
+    "default_icon": "assets/logo.jpg",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "scripts": [
+      "js/background.js"
+    ],
+    "persistent": true
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://detail.1688.com/*",
+        "https://xiapi.xiapibuy.com/"
+      ],
+      "run_at": "document_end",
+      "js": [
+        "js/jq-3.2.1.min.js",
+        "js/file-saver.min.js",
+        "js/jszip.min.js",
+        "js/content.js"
+      ],
+      "css": [
+        "css/content.css"
+      ]
+    }
+  ]
+}

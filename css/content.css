@@ -1,0 +1,13 @@
+#plug_open {
+  position: fixed;
+  bottom: 80px;
+  right: 50px;
+  width: 80px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  z-index: 999999;
+  cursor: pointer;
+}
