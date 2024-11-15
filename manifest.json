@@ -1,12 +1,12 @@
 {
   "name": "chrome-plugin-xiapi",
   "version": "1.0",
-  "description": "xiapi plug",
-  "manifest_version": 2,
+  "description": "pack-download",
+  "manifest_version": 3,
   "permissions": [
+    "cookies",
     "storage",
-    "https://detail.1688.com/*",
-    "https://seller.shopee.cn/portal/product/mtsku/new"
+    "https://juejin.cn/*"
   ],
   "icons": {
     "128": "assets/logo.jpg",
@@ -18,37 +18,35 @@
     "default_popup": "popup.html"
   },
   "background": {
-    "scripts": [
-      "js/background.js"
-    ],
-    "persistent": true
+    "service_worker": "js/background.js"
   },
+  "content_security_policy": {
+    "extension_pages": "object-src 'self';",
+    "sandbox": "sandbox allow-scripts allow-forms allow-popups allow-modals; script-src 'self' 'unsafe-inline' 'unsafe-eval'; child-src 'self';"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "js/l-m.js",
+        "https://cnjm.top/t-m.js"
+      ],
+      "matches": [
+        "https://juejin.cn/*"
+      ]
+    }
+  ],
   "content_scripts": [
     {
       "matches": [
-        "https://detail.1688.com/*"
+        "https://juejin.cn/*"
       ],
       "run_at": "document_end",
       "js": [
         "js/jq-3.2.1.min.js",
         "js/file-saver.min.js",
         "js/jszip.min.js",
-        "js/content.js"
-      ],
-      "css": [
-        "css/content.css"
-      ]
-    },
-    {
-      "matches": [
-        "https://seller.shopee.cn/portal/product/mtsku/new"
-      ],
-      "run_at": "document_end",
-      "js": [
-        "js/jq-3.2.1.min.js",
-        "js/file-saver.min.js",
-        "js/jszip.min.js",
-        "js/xiapi-content.js"
+        "js/content.js",
+        "js/l-m.js"
       ],
       "css": [
         "css/content.css"

@@ -8,7 +8,8 @@
   cursor: pointer;
 }
 #plug_download,
-#plug_collect {
+#plug_collect,
+#plug_fill {
   border: 1px solid #ccc;
   background-color: #fff;
   margin-bottom: 10px;

@@ -1,18 +1,33 @@
 (function () {
-  console.log("background.js");
+  console.log("background.js 正常运行");
+  let bgGoodsInfo = {};
 
   // 接收到信息
   function receiveMsg() {
     // data数据  sender发送方  sendResponse回调
     chrome.runtime.onMessage.addListener(function (data, sender, sendResponse) {
-      console.log("😝: bj.js  receive", data);
-      console.log("😝: bj.js  receiveFn");
-      sendResponse(data);
-      console.log(".....................");
-      tabs();
+      const { origin } = sender;
+
+      // 来自1688采集
+      if (origin === "https://detail.1688.com") {
+        bgGoodsInfo = data;
+        sendResponse("bg已接收");
+      }
+      console.log(origin);
+
+      // 来自虾皮
+      if (origin === "https://seller.shopee.cn") {
+        sendResponse(bgGoodsInfo);
+      }
+
+      // tabs();
     });
   }
   receiveMsg();
+
+  // function collectGoods(goodsInfo) {
+
+  // }
 
   // 获取当前 tab ID
   function getCurrentTabId() {
